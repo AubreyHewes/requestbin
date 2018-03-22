@@ -37,21 +37,21 @@ It will push to Heroku and give you a URL that your own private RequestBin will 
 
 ## Deploy your own instance using Dokku
 
+Will use Dokku Dockerfile deployment
+
 `$ git clone git://github.com/AubreyHewes/requestbin.git`
 
 Create a Dokku application:
 
-`$ dokku apps:create requestbin`
-`$ dokku config:set DOKKU_PROXY_PORT_MAP="http:80:8000"`
+`$ dokku apps:create requestbin && dokku config:set DOKKU_PROXY_PORT_MAP="http:80:8000"`
 
 Link in a redis container:
 
-`$ dokku redis:create requestbin`
-`$ dokku redis:link requestbin requestbin`
+`$ dokku redis:create requestbin && dokku redis:link requestbin requestbin`
 
 Set an environment variable to indicate production:
 
-`$ heroku config:set REALM=prod`
+`$ dokku config:set requestbin REALM=prod`
 
 Now just deploy via git:
 
