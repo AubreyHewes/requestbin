@@ -1,10 +1,9 @@
 import os, urlparse
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", True)
 REALM = os.environ.get('REALM', 'local')
 
-ROOT_URL = "http://localhost:4000"
-
-PORT_NUMBER = 4000
+PORT = int(os.environ.get('PORT', 8000))
+ROOT_URL = "http://localhost:%s" % (PORT)
 
 ENABLE_CORS = False
 CORS_ORIGINS = "*"
@@ -15,7 +14,7 @@ BIN_TTL = os.environ.get("BIN_TTL", 48)*3600
 STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
 MAX_RAW_SIZE = int(os.environ.get('MAX_RAW_SIZE', 1024*10))
 IGNORE_HEADERS = []
-MAX_REQUESTS = os.environ.get("HISTORY_MAX_REQUESTS", 20)
+MAX_REQUESTS = os.environ.get("MAX_REQUESTS", 20)
 CLEANUP_INTERVAL = 3600
 MAX_JSON_TO_PRETTYPARSE_IN_BYTES = int(os.environ.get('MAX_JSON_TO_PRETTYPARSE_IN_BYTES', 300*1024))
 
@@ -25,12 +24,12 @@ REDIS_PORT = 6379
 REDIS_PASSWORD = None
 REDIS_DB = 9
 
-REDIS_PREFIX = "requestbin"
+REDIS_PREFIX = os.environ.get("REDIS_PREFIX", "requestbin")
 
 BUGSNAG_KEY = os.environ.get("BUGSNAG_KEY", "")
 
 if REALM == 'prod':
-    DEBUG = False
+    DEBUG = os.environ.get("DEBUG", False)
     ROOT_URL = os.environ.get("ROOT_URL", "http://requestb.in")
 
     FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", FLASK_SESSION_SECRET_KEY)

@@ -1,5 +1,9 @@
 [![wercker status](https://app.wercker.com/status/79acb75d4225b59f966e4d79aac4ef8f/s/custom "wercker status")](https://app.wercker.com/project/byKey/79acb75d4225b59f966e4d79aac4ef8f)
 
+# Your own private RequestBin
+
+https://github.com/Runscope/requestbin
+
 Originally Created by [Jeff Lindsay](http://progrium.com)
 
 License
@@ -73,8 +77,27 @@ $ sudo docker-compose up -d
 
 Your own private RequestBin will be running on this server.
 
+## Configuration
+
+You can configure the runtime via environment variables
+
+| Key | Description |
+| --- | --- |
+| SESSION_SECRET_KEY | Set to a unique value; **default is untrusted; so set this in production** |
+| BIN_TTL | The TTL of a bin. Set to an int value in hours; default `48` |
+| MAX_REQUESTS | A bin will keep the last `MAX_REQUESTS` requests made. Set to an int value; default `20` |
+| MAX_RAW_SIZE | Set to an int value in bytes: default `10240` |
+| MAX_JSON_TO_PRETTYPARSE_IN_BYTES | Set to an int value in bytes: default `307200` |
+| BUGSNAG_KEY | Set your [BugSnag](https://www.bugsnag.com) key |
+| REDIS_URL | Set your REDIS_URL |
+| ENABLE_CORS | Enable CORS |
+| CORS_ORIGINS | Set CORS origins; default `*` if `ENABLE_CORS` |
+| ROOT_URL | Set your ROOT_URL without PORT (superfluous; not used anywhere) |
+| PORT | Set listening port; default `8000` (Fixed at `8000` in docker/dokku) |
+| DEBUG | Display some debug output; default `False` in `prod` and `True` in `local` |
 
 Contributors
 ------------
  * Barry Carlyon <barry@barrycarlyon.co.uk>
  * Jeff Lindsay <progrium@gmail.com>
+ * https://github.com/AubreyHewes/requestbin/graphs/contributors
