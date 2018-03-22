@@ -23,4 +23,4 @@ deploy:
         name: Push to dokku
         code: |
           git remote add deploy dokku@$host:$appname
-          git push -f deploy custom:master
+          git push -f deploy HEAD:master

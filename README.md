@@ -1,4 +1,4 @@
-# We have discontinued the publicly hosted version of RequestBin due to ongoing abuse that made it very difficult to keep the site up reliably. Please see instructions below for setting up your own self-hosted instance.
+[![wercker status](https://app.wercker.com/status/79acb75d4225b59f966e4d79aac4ef8f/s/custom "wercker status")](https://app.wercker.com/project/byKey/79acb75d4225b59f966e4d79aac4ef8f)
 
 Originally Created by [Jeff Lindsay](http://progrium.com)
 
