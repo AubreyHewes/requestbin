@@ -13,7 +13,7 @@ FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", "N1BKhJLnBqLpexO
 
 BIN_TTL = os.environ.get("BIN_TTL", 48)*3600
 STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
-MAX_RAW_SIZE = 1024*10
+MAX_RAW_SIZE = int(os.environ.get('MAX_RAW_SIZE', 1024*10))
 IGNORE_HEADERS = []
 MAX_REQUESTS = os.environ.get("HISTORY_MAX_REQUESTS", 20)
 CLEANUP_INTERVAL = 3600
