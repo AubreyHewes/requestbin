@@ -15,7 +15,7 @@ Looking to self-host?
 ## Deploy your own instance using Heroku
 Create a Heroku account if you haven't, then grab the RequestBin source using git:
 
-`$ git clone git://github.com/Runscope/requestbin.git`
+`$ git clone git://github.com/AubreyHewes/requestbin.git`
 
 From the project directory, create a Heroku application:
 
@@ -35,6 +35,27 @@ Now just deploy via git:
 
 It will push to Heroku and give you a URL that your own private RequestBin will be running.
 
+## Deploy your own instance using Dokku
+
+`$ git clone git://github.com/AubreyHewes/requestbin.git`
+
+Create a Dokku application:
+
+`$ dokku apps:create requestbin`
+`$ dokku config:set DOKKU_PROXY_PORT_MAP="http:80:8000"`
+
+Link in a redis container:
+
+`$ dokku redis:create requestbin`
+`$ dokku redis:link requestbin requestbin`
+
+Set an environment variable to indicate production:
+
+`$ heroku config:set REALM=prod`
+
+Now just deploy via git:
+
+`$ git push dokku master`
 
 ## Deploy your own instance using Docker
 
