@@ -1,0 +1,21 @@
+box: python:2.7
+services:
+    - redis:2.8
+build:
+  steps:
+    - script:
+        name: echo python information
+        code: |
+          echo "python version $(python -v) running"
+          echo "pip version $(pip -v) running"
+deploy:
+  steps:
+    - add-to-known_hosts:
+        hostname: $host
+    - add-ssh-key:
+        keyname: wercker
+    - script:
+        name: Push to dokku
+        code: |
+          git remote add deploy dokku@$host:$appname
+          git push -f deploy HEAD:custom
