@@ -6,8 +6,13 @@ build:
     - script:
         name: echo python information
         code: |
-          echo "python version $(python -v) running"
-          echo "pip version $(pip -v) running"
+          echo "python version $(python --version) running"
+          echo "pip version $(pip --version) running"
+    - virtualenv:
+        name: setup virtual environment
+        install_wheel: false # Enable wheel to speed up builds (experimental)
+    - pip-install
+
 deploy:
   steps:
     - add-to-known_hosts:
