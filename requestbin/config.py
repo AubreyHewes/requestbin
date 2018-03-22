@@ -15,7 +15,7 @@ BIN_TTL = 48*3600
 STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
 MAX_RAW_SIZE = 1024*10
 IGNORE_HEADERS = []
-MAX_REQUESTS = 20
+MAX_REQUESTS = os.environ.get("HISTORY_MAX_REQUESTS", 20)
 CLEANUP_INTERVAL = 3600
 
 REDIS_URL = ""
@@ -26,11 +26,11 @@ REDIS_DB = 9
 
 REDIS_PREFIX = "requestbin"
 
-BUGSNAG_KEY = ""
+BUGSNAG_KEY = os.environ.get("BUGSNAG_KEY", "")
 
 if REALM == 'prod':
     DEBUG = False
-    ROOT_URL = "http://requestb.in"
+    ROOT_URL = os.environ.get("ROOT_URL", "http://requestb.in")
 
     FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", FLASK_SESSION_SECRET_KEY)
 
