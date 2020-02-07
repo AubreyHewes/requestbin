@@ -13,7 +13,7 @@
     {% block head %}{% endblock %}
   </head>
   <body onload="prettyPrint()">
-    
+
     <div class="runscope-wrap">
         <div class="row-fluid">
             <p class="tagline">A <a href="https://www.runscope.com?utm_source=partner&amp;utm_medium=link&amp;utm_campaign=requestbin" title="Runscope API Tools"><strong>Runscope</strong></a> community project. <a href="mailto:requestbin@runscope.com">Send us feedback!</a></p>
@@ -53,7 +53,7 @@
               <a href="/{{bin.name}}?inspect"><i class="icon-circle" style="color: rgb{{bin.color}}"></i></a>
               <a href="/{{bin.name}}?inspect">{{bin.name}}</a> {% if bin.private %}<i class="icon-lock"></i>{% endif %}
               ({{bin.request_count}})
-              
+
             </li>
             {% else %}
             <p style="margin-left: -24px; color: gray;">
@@ -98,6 +98,5 @@
 
     {% block script %}
     {% endblock %}
-
   </body>
 </html>
