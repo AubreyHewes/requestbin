@@ -1,4 +1,4 @@
-box: python:2.7
+box: python:3.8
 services:
     - redis:2.8
 build:
