@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+gevent = "*"
+flake8 = "*"
+autopep8 = "*"
+gunicorn = "*"
+
+[packages]
+nose = "*"
+feedparser = "*"
+redis = "*"
+msgpack-python = "*"
+python-dateutil = "*"
+gunicorn = "==19.9.0"
+bugsnag = "*"
+blinker = "*"
+ProxyTypes = "*"
+Flask-Cors = "*"
+
+[requires]
+python_version = "3.8"

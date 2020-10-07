@@ -1,9 +1,9 @@
 import time
-import operator
-
 from ..models import Bin
 
+
 from requestbin import config
+
 
 class MemoryStorage():
     cleanup_interval = config.CLEANUP_INTERVAL
@@ -18,7 +18,7 @@ class MemoryStorage():
 
     def _cleanup_loop(self):
         while True:
-            self.async.sleep(self.cleanup_interval)
+            self.asynchronous.sleep(self.cleanup_interval)
             self._expire_bins()
 
     def _expire_bins(self):

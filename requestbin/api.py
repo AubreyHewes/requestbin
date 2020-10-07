@@ -1,8 +1,9 @@
 import json
-import operator
 
-from flask import session, make_response, request, render_template
-from requestbin import app, db
+from flask import make_response, request, session
+
+from requestbin import db
+
 
 def _response(object, code=200):
     jsonp = request.args.get('jsonp')
@@ -16,7 +17,6 @@ def _response(object, code=200):
     return resp
 
 
-@app.endpoint('api.bins')
 def bins():
     private = request.form.get('private') in ['true', 'on']
     bin = db.create_bin(private)
@@ -25,7 +25,6 @@ def bins():
     return _response(bin.to_dict())
 
 
-@app.endpoint('api.bin')
 def bin(name):
     try:
         bin = db.lookup_bin(name)
@@ -35,7 +34,6 @@ def bin(name):
     return _response(bin.to_dict())
 
 
-@app.endpoint('api.requests')
 def requests(bin):
     try:
         bin = db.lookup_bin(bin)
@@ -45,7 +43,6 @@ def requests(bin):
     return _response([r.to_dict() for r in bin.requests])
 
 
-@app.endpoint('api.request')
 def request_(bin, name):
     try:
         bin = db.lookup_bin(bin)
@@ -59,7 +56,6 @@ def request_(bin, name):
     return _response({'error': "Request not found"}, 404)
 
 
-@app.endpoint('api.stats')
 def stats():
     stats = {
         'bin_count': db.count_bins(),

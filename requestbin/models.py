@@ -3,7 +3,6 @@ import json
 import time
 import datetime
 import os
-import re
 import logging
 
 import msgpack
@@ -13,6 +12,7 @@ from .util import tinyid
 from .util import solid16x16gif_datauri
 
 from requestbin import config
+
 
 class Bin(object):
     max_requests = config.MAX_REQUESTS
@@ -28,11 +28,11 @@ class Bin(object):
 
     def json(self):
         return json.dumps(self.to_dict())
-    
+
     def to_dict(self):
         return dict(
-            private=self.private, 
-            color=self.color, 
+            private=self.private,
+            color=self.color,
             name=self.name,
             request_count=self.request_count)
 
@@ -55,20 +55,21 @@ class Bin(object):
 
     def add(self, request):
         self.requests.insert(0, Request(request))
-        if len(self.requests) > self.max_requests:
-            for _ in xrange(self.max_requests, len(self.requests)):
+        if self.request_count > self.max_requests:
+            for _ in range(self.max_requests, len(self.requests)):
                 self.requests.pop(self.max_requests)
 
 
 class Request(object):
     ignore_headers = config.IGNORE_HEADERS
-    max_raw_size = config.MAX_RAW_SIZE 
+    max_raw_size = config.MAX_RAW_SIZE
 
     def __init__(self, input=None):
         if input:
             self.id = tinyid(6)
             self.time = time.time()
-            self.remote_addr = input.headers.get('X-Forwarded-For', input.remote_addr)
+            self.remote_addr = input.headers.get(
+                'X-Forwarded-For', input.remote_addr)
             self.method = input.method
             self.headers = dict(input.headers)
 
@@ -89,11 +90,10 @@ class Request(object):
             self.content_length = len(self.raw)
 
             # for header in self.ignore_headers:
-            #     self.raw = re.sub(r'{}: [^\n]+\n'.format(header), 
+            #     self.raw = re.sub(r'{}: [^\n]+\n'.format(header),
             #                         '', self.raw, flags=re.IGNORECASE)
             if self.raw and len(self.raw) > self.max_raw_size:
                 self.raw = self.raw[0:self.max_raw_size]
-
 
     def to_dict(self):
         return dict(
@@ -168,4 +168,3 @@ class Request(object):
     #         else:
     #             fields.append((k,v))
     #     return iter(sorted(fields) + sorted(files))
-
