@@ -17,7 +17,6 @@ views.bin.methods = [
     'TRACE'
 ]
 app.add_url_rule('/<path:name>', 'views.bin', views.bin)
-app.add_url_rule('/docs/<name>', 'views.docs', views.docs)
 
 api.bins.provide_automatic_options = False
 api.bins.methods = ['POST']

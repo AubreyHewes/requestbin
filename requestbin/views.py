@@ -47,18 +47,6 @@ def bin(name):
                                MAX_REQUESTS=config.MAX_REQUESTS,
                                BIN_TTL=config.BIN_TTL / 3600)
     else:
-
         db.create_request(bin, request)
         resp = make_response("ok\n")
         return resp
-
-
-def docs(name):
-    doc = db.lookup_doc(name)
-    if doc:
-        return render_template('doc.html',
-                               content=doc['content'],
-                               title=doc['title'],
-                               recent=expand_recent_bins())
-    else:
-        return "Not found", 404
