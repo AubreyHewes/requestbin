@@ -1,20 +1,19 @@
 from __future__ import absolute_import
 
-import time
-import cPickle as pickle
-
 import redis
 
 from ..models import Bin
 
 from requestbin import config
 
+
 class RedisStorage():
     prefix = config.REDIS_PREFIX
 
     def __init__(self, bin_ttl):
         self.bin_ttl = bin_ttl
-        self.redis = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB, password=config.REDIS_PASSWORD)
+        self.redis = redis.StrictRedis(
+            host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB, password=config.REDIS_PASSWORD)
 
     def _key(self, name):
         return '{}_{}'.format(self.prefix, name)
@@ -56,5 +55,5 @@ class RedisStorage():
             bin = Bin.load(serialized_bin)
             return bin
         except TypeError:
-            self.redis.delete(key) # clear bad data
+            self.redis.delete(key)  # clear bad data
             raise KeyError("Bin not found")

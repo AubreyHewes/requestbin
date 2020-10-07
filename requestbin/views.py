@@ -1,7 +1,8 @@
-import urllib
-from flask import session, redirect, url_for, escape, request, render_template, make_response
+from flask import make_response, render_template, request, session
 
-from requestbin import config, app, db
+import requestbin.config as config
+from requestbin import db
+
 
 def update_recent_bins(name):
     if 'recent' not in session:
@@ -26,40 +27,38 @@ def expand_recent_bins():
             session.modified = True
     return recent
 
-@app.endpoint('views.home')
+
 def home():
     return render_template('home.html', recent=expand_recent_bins())
 
 
-@app.endpoint('views.bin')
 def bin(name):
     try:
         bin = db.lookup_bin(name)
     except KeyError:
         return "Not found\n", 404
-    if request.query_string == 'inspect':
+    if request.query_string.decode() == 'inspect':
         if bin.private and session.get(bin.name) != bin.secret_key:
             return "Private bin\n", 403
         update_recent_bins(name)
         return render_template('bin.html',
-            bin=bin,
-            base_url=request.scheme+'://'+request.host,
-            MAX_REQUESTS=config.MAX_REQUESTS,
-            BIN_TTL=config.BIN_TTL / 3600)
+                               bin=bin,
+                               base_url=request.scheme+'://'+request.host,
+                               MAX_REQUESTS=config.MAX_REQUESTS,
+                               BIN_TTL=config.BIN_TTL / 3600)
     else:
+
         db.create_request(bin, request)
         resp = make_response("ok\n")
-        resp.headers['Sponsored-By'] = "https://www.runscope.com"
         return resp
 
 
-@app.endpoint('views.docs')
 def docs(name):
     doc = db.lookup_doc(name)
     if doc:
         return render_template('doc.html',
-                content=doc['content'],
-                title=doc['title'],
-                recent=expand_recent_bins())
+                               content=doc['content'],
+                               title=doc['title'],
+                               recent=expand_recent_bins())
     else:
         return "Not found", 404

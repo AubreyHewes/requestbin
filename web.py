@@ -1,7 +1,6 @@
 from requestbin import config
-import os
 
-from requestbin import app
+from requestbin.app import app
 
 if __name__ == "__main__":
     port = int(config.PORT)
