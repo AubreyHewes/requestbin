@@ -55,7 +55,7 @@ class Bin(object):
 
     def add(self, request):
         self.requests.insert(0, Request(request))
-        if len(self.requests) > self.max_requests:
+        if self.request_count > self.max_requests:
             for _ in range(self.max_requests, len(self.requests)):
                 self.requests.pop(self.max_requests)
 
