@@ -5,5 +5,8 @@ serviced.log
 
 codekit-config.json
 
+# virtualenv
+/venv/
+
 # Mac Files
 **/.DS_Store
