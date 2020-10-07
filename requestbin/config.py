@@ -15,7 +15,7 @@ BIN_TTL = os.environ.get("BIN_TTL", 48)*3600
 STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
 MAX_RAW_SIZE = int(os.environ.get('MAX_RAW_SIZE', 1024*10))
 IGNORE_HEADERS = []
-MAX_REQUESTS = os.environ.get("MAX_REQUESTS", 20)
+MAX_REQUESTS = int(os.environ.get("MAX_REQUESTS", 20))
 CLEANUP_INTERVAL = 3600
 MAX_JSON_TO_PRETTYPARSE_IN_BYTES = int(os.environ.get('MAX_JSON_TO_PRETTYPARSE_IN_BYTES', 300*1024))
 
