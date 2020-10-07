@@ -10,7 +10,7 @@ storage_module, storage_class = storage_backend.rsplit('.', 1)
 
 try:
     klass = getattr(__import__(storage_module, fromlist=[storage_class]), storage_class)
-except ImportError, e:
+except ImportError as e:
     raise ImportError("Unable to load storage backend '{}': {}".format(storage_backend, e))
 
 db = klass(bin_ttl)

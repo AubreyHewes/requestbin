@@ -1,12 +1,10 @@
-gevent
 ProxyTypes
 nose
-wsgiref
 feedparser
 Flask-Cors
 redis
 msgpack-python
 python-dateutil
-gunicorn
+gunicorn==19.9.0
 bugsnag
 blinker

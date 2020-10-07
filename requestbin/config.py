@@ -1,4 +1,5 @@
-import os, urlparse
+import os
+import urllib.parse as urlparse
 DEBUG = True
 REALM = os.environ.get('REALM', 'local')
 
