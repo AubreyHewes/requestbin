@@ -140,7 +140,7 @@ public class RequestBinTutorial {
       <div class="alert-message block-message info">
         <h4>Limits</h4>
         <p>This {% if bin.private %}<strong>private</strong>{% endif %}
-        bin will keep the last 20 requests made to it and remain available for 48 hours after it was created.
+        bin will keep the last {{MAX_REQUESTS}} requests made to it and remain available for {{BIN_TTL}} hours after it was created.
         However, data might be cleared at any time, so <strong>treat bins as highly ephemeral</strong>.</p>
 
         <h4>Need more?</h4>
@@ -183,8 +183,8 @@ public class RequestBinTutorial {
 
     <h5>RAW BODY</h5>
     <div class="request-body" data-id="{{ request.id }}">
-<pre class="body prettyprint">{%if request.raw%}{{request.raw}}{%else%}<em>None</em>{%endif%}</pre>
+        <pre class="body prettyprint">{{ request.get_raw() or "<em>None</em>" }}</pre>
+    </div>
 
-  </div>
 </div>
 {% endmacro %}

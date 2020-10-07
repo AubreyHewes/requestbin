@@ -1,7 +1,7 @@
 import urllib
 from flask import session, redirect, url_for, escape, request, render_template, make_response
 
-from requestbin import app, db
+from requestbin import config, app, db
 
 def update_recent_bins(name):
     if 'recent' not in session:
@@ -43,7 +43,9 @@ def bin(name):
         update_recent_bins(name)
         return render_template('bin.html',
             bin=bin,
-            base_url=request.scheme+'://'+request.host)
+            base_url=request.scheme+'://'+request.host,
+            MAX_REQUESTS=config.MAX_REQUESTS,
+            BIN_TTL=config.BIN_TTL / 3600)
     else:
         db.create_request(bin, request)
         resp = make_response("ok\n")
