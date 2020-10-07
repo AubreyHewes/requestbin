@@ -18,7 +18,6 @@ class MemoryStorage():
 
     def _cleanup_loop(self):
         while True:
-            print(dir(self))
             self.asynchronous.sleep(self.cleanup_interval)
             self._expire_bins()
 
